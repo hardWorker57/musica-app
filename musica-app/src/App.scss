@@ -1,0 +1,121 @@
+$prime-color: #FACD66;
+$grey: #EFEEE0;
+$add-gray: #D9D9D9;
+$dark: #1A1E1F;
+
+.App {
+    height: 100vh;
+    // display: flex;
+}
+body {
+    margin: 0;
+    /* font-family: 'Afacad', sans-serif; */
+    // font-family: 'Comfortaa', sans-serif; 
+    /* font-family: 'Kalnia', serif; */
+    // font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif; 
+    background-color: #16181E;
+    color: #EFEEE0;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all .3s ease;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+input {
+    color: inherit;
+}
+.container {
+    max-width: 92%;
+    padding-left: 5.5em;
+    margin-inline: auto;
+}
+
+button {
+    outline: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 0.8em 1.4em;
+    border: none;
+    color: inherit;
+    background-color: black;
+    transition: all .4s;
+}
+button:hover {
+    // color: $prime-color;
+    background-color: $prime-color;
+    color: $dark;
+}
+
+.logo {
+    font-size: 2.4em;
+    color: $grey;
+    cursor: pointer;
+}
+.search {
+    padding: 1em;
+    color: $grey;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    max-width: 20em;
+    margin-left: 7em;
+}
+.block_title {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2em;
+}
+.like {
+    cursor: pointer;
+    border-radius: 100%;
+    padding: .3em;
+    padding-bottom: .05em;
+    font-size: 1.4em;
+    border: .1px solid $add-gray;
+    color: $prime-color;
+}
+
+.chart_els {
+    display: flex;
+    flex-direction: column;
+    gap: .8em;
+    margin-top: 1.2em;
+}
+.charts_el {
+    display: flex;
+    justify-content: space-between;
+    background-color: $dark;
+    border-radius: 2em;
+    padding: .3em 1em;
+    align-items: center;
+    img {
+        border-radius: 1.2em;
+    }
+}
+
+.song_cards {
+    display: flex;
+    gap: 1.8em;
+    .song_card {
+        max-width: 12.5em;
+        text-align: center;
+    }
+    .card_author {
+        font-size: .8em;
+        color: rgba(255, 255, 255, 0.515);
+    }
+    .song_card {
+        img {
+            border-radius: 2em;
+            max-width: 12.5em;
+        }
+    }
+}
