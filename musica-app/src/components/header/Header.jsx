@@ -1,12 +1,12 @@
 import React from 'react'
 import { CiSearch } from "react-icons/ci";
+import { Input } from '../ui/input';
 
 const Header = () => {
   return (
-    <div>
+    <div className='header'>
       <div className="search">
-        <CiSearch />
-        Search
+      <CiSearch /><Input placeholder='Search'/>
       </div>
     </div>
   )

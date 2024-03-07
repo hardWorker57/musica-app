@@ -1,0 +1,29 @@
+.Player {
+    position: fixed;
+    bottom: 0;
+    width: calc(100vw - 1em);
+    height: 14vh;
+    background-color: #1d212378;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+}
+
+.player_wrap {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .player_song {
+        align-items: center;
+        display: flex;
+    }
+}
+.player_song {
+    display: flex;
+    gap: 1em;
+    img {
+        max-width: 4em;
+        border-radius: .5em;
+    }
+}

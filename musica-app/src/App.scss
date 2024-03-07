@@ -4,7 +4,7 @@ $add-gray: #D9D9D9;
 $dark: #1A1E1F;
 
 .App {
-    height: 100vh;
+    margin-bottom: 5em;
     // display: flex;
 }
 body {
@@ -17,6 +17,9 @@ body {
     background-color: #16181E;
     color: #EFEEE0;
     overflow-x: hidden;
+}
+.header {
+    padding-top: 1.2em;
 }
 
 a {
@@ -31,11 +34,12 @@ li {
     list-style: none;
 }
 input {
+    box-shadow: none;
     color: inherit;
+    background-color: transparent;
 }
 .container {
-    max-width: 92%;
-    padding-left: 5.5em;
+    max-width: 85%;
     margin-inline: auto;
 }
 
@@ -66,8 +70,10 @@ button:hover {
     display: flex;
     gap: 1em;
     align-items: center;
-    max-width: 20em;
     margin-left: 7em;
+    input {
+        width: 20em;
+    }
 }
 .block_title {
     font-family: 'Comfortaa', sans-serif;
@@ -96,6 +102,10 @@ button:hover {
     border-radius: 2em;
     padding: .3em 1em;
     align-items: center;
+    transition: .3s ease;
+    &:hover {
+        transform: scale(.95);
+    }
     img {
         border-radius: 1.2em;
     }
@@ -107,6 +117,11 @@ button:hover {
     .song_card {
         max-width: 12.5em;
         text-align: center;
+        transition: .3s ease;
+        &:hover {
+            transform: skewX(3deg) scale(1.1);
+            opacity: .8;
+        }
     }
     .card_author {
         font-size: .8em;
@@ -117,5 +132,24 @@ button:hover {
             border-radius: 2em;
             max-width: 12.5em;
         }
+        // .playlist_image {
+        //     background: linear-gradient(180deg, rgba(255,255,255,0.96271008403361347) 0%, rgba(0,0,0,1) 100%);
+        // }
+    }
+}
+.overlay_image {
+    position: absolute;
+    z-index: -1;
+    // background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0.36271008403361347) 32%, rgba(0,0,0,0.4963235294117647) 100%);
+    // background: linear-gradient(180deg, rgba(255,255,255,0.46271008403361347) 39%, rgba(0,0,0,0.4963235294117647) 71%);
+//     background: rgb(255,255,255);
+// background: linear-gradient(180deg, rgba(255,255,255,0.46271008403361347) 2%, rgba(79,79,79,0.499124649859944) 59%, rgba(58,58,58,1) 100%, rgba(0,0,0,0.4963235294117647) 100%);
+    // opacity: .4;
+    img {
+        min-width: 100vw;
+        object-fit: cover;
+        max-height: 50em;
+        opacity: .15;
     }
 }

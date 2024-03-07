@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import s from "./Song.module.scss";
 import { useParams } from "react-router-dom";
+import Header from "../header/Header";
+import { FaHeart } from "react-icons/fa";
+import { FaPlayCircle } from "react-icons/fa";
+import { RiPlayListAddFill } from "react-icons/ri";
 
 const Song = () => {
   const { id } = useParams();
@@ -16,24 +20,41 @@ const Song = () => {
   };
 
   useEffect(() => {
-      getThisMusic();
-      window.scrollTo(0, 0);
+    getThisMusic();
+    window.scrollTo(0, 0);
   }, []);
   const getThisMusic = () => {
     fetch(song_url, options)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-            setCurrentMusic(data);
+          setCurrentMusic(data);
+          console.log(data)
         }
       });
   };
 
-  return (
+    return (
     <div className={s.Song}>
+      <div className="overlay_image"><img src={currentMusic.album ? currentMusic.album.cover_xl : ''} alt="" /></div>
+      <Header/>
       <div className="container">
-        <div className="title">{currentMusic ? currentMusic.title : ''}</div>
-        <div className="image"><img src={currentMusic.album ? currentMusic.album.cover : ''} alt="" /></div>
+        <div className={s.song_wrapper}>
+            <div className={s.image}>
+                <img src={currentMusic.album ? currentMusic.album.cover_medium : ""}alt=""/>
+            </div>
+            <div className={s.content}>
+                <div className={s.title}>{currentMusic ? currentMusic.title : ""}</div>
+                <div className={s.desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, quas?</div>
+                <div className={s.songs_num}>64</div>
+                <div className={s.btns}>
+                    <div className={s.custom_btn}><FaPlayCircle />Play all</div>
+                    <div className={s.custom_btn}><RiPlayListAddFill />Add to collection</div>
+                    <div className={s.custom_btn}><FaHeart color="#E5524A"/></div>
+                </div>
+            </div>
+        </div>
+        <audio src={currentMusic ? currentMusic.prewiev : ''}></audio>
       </div>
     </div>
   );

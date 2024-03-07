@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import s from "./NewRelizes.module.scss";
 import { Link } from "react-router-dom";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 
 const NewRealizes = () => {
   const [music, setMusic] = useState([]);
@@ -30,18 +31,33 @@ const NewRealizes = () => {
   return (
     <div className={s.NewRealizes}>
       <div className="block_title">New releases</div> <br />
+      {/* <CarouselSize/> */}
       <div className="song_cards">
-        {music.length > 0 && music.slice(0, 8).map((album, index) => (
-          <Link to={`/album/${album ? album.id : ''}`} key={index}>
-            <div className="song_card">
-              <img src={album.album ? album.album.cover_big : ''} alt="no image" />
-              <div className="cover_overlay">
-                <div className="card_title">{album ? album.title : ''}</div>
-                <div className="card_author">{album.artist ? album.artist.name : ''}</div>
-              </div>
-            </div>
-          </Link>
-        ))}
+        {music.length > 0 &&
+          music.slice(0, 8).map((album, index) => (
+            <Link to={`/album/${album ? album.id : ""}`} key={index}>
+              <Carousel>
+                <CarouselContent>
+                  {/* <CarouselItem className=""> */}
+                    <div className="song_card">
+                      <img
+                        src={album.album ? album.album.cover_big : ""}
+                        alt="no image"
+                      />
+                      <div className="cover_overlay">
+                        <div className="card_title">
+                          {album ? album.title : ""}
+                        </div>
+                        <div className="card_author">
+                          {album.artist ? album.artist.name : ""}
+                        </div>
+                      </div>
+                    </div>
+                  {/* </CarouselItem> */}
+                </CarouselContent>
+              </Carousel>
+            </Link>
+          ))}
       </div>
     </div>
   );

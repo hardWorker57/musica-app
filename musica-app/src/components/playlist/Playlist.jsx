@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import s from "./Playlist.module.scss";
 import { Link } from "react-router-dom";
+import Header from "../header/Header";
 
 const Playlist = () => {
 
@@ -31,6 +32,7 @@ const Playlist = () => {
 
   return (
     <div className={s.Playlist}>
+      <Header/>
       <div className="container">
         <div className={s.btns}>
           <Button>My collection</Button>
@@ -40,7 +42,7 @@ const Playlist = () => {
           {music.length > 0 && music.slice(0, 4).map((album, index) => (
             <Link to={`/album/${album ? album.id : ''}`} key={index}>
               <div className="song_card">
-                <img src={album.album ? album.album.cover_big : ''} alt="no image" />
+                <img className="playlist_image" src={album.album ? album.album.cover_big : ''} alt="no image" />
                 <div className="cover_overlay">
                   <div className="card_title">{album ? album.title : ''}</div>
                   <div className="card_author">{album.artist ? album.artist.name : ''}</div>

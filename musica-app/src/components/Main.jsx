@@ -2,6 +2,7 @@
 import Songs from './Songs/Songs'
 import './Main.scss'
 import NewRealizes from './Songs/NewRealizes'
+import Header from './header/Header'
 
 const Main = () => {
 
@@ -31,6 +32,7 @@ const Main = () => {
 
   return (
     <div className='Main'>
+      <Header/>
       <div className="container">
         <Songs />
         <NewRealizes />
