@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import s from './Player.module.scss'
 import { HiSpeakerWave } from "react-icons/hi2";
 import { HiSpeakerXMark } from "react-icons/hi2";
 
 const Player = () => {
-    let isMuted = false;
+    const [isMuted, setMute] = useState(false);
   return (
     <div className={s.Player}>
         <div className={s.player_wrap}>

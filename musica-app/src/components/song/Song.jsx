@@ -51,10 +51,11 @@ const Song = () => {
                     <div className={s.custom_btn}><FaPlayCircle />Play all</div>
                     <div className={s.custom_btn}><RiPlayListAddFill />Add to collection</div>
                     <div className={s.custom_btn}><FaHeart color="#E5524A"/></div>
+                    <div className="audio"><audio src={currentMusic ? currentMusic.preview : '21'}>12</audio></div>
                 </div>
             </div>
         </div>
-        <audio src={currentMusic ? currentMusic.prewiev : ''}></audio>
+        <audio src={currentMusic ? currentMusic.preview : '21'}>12</audio>
       </div>
     </div>
   );

@@ -30,6 +30,10 @@ const Main = () => {
   //   getMusic()
   // }, [])
 
+  const mainSearch = function (getType) {
+    function getType() {return}
+  };
+
   return (
     <div className='Main'>
       <Header/>

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import s from "./NewRelizes.module.scss";
 import { Link } from "react-router-dom";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
 
 const NewRealizes = () => {
   const [music, setMusic] = useState([]);
 
-  const url = "https://deezerdevs-deezer.p.rapidapi.com/search?q=pushbaby";
+  const url = "https://deezerdevs-deezer.p.rapidapi.com/search?q=ava max";
   const options = {
     method: "GET",
     headers: {
@@ -33,11 +35,15 @@ const NewRealizes = () => {
       <div className="block_title">New releases</div> <br />
       {/* <CarouselSize/> */}
       <div className="song_cards">
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={5}
+        className="swiper_wrap"
+      >
         {music.length > 0 &&
-          music.slice(0, 8).map((album, index) => (
+          music.slice(0, 13).map((album, index) => (
+            <SwiperSlide className="swiper">
             <Link to={`/album/${album ? album.id : ""}`} key={index}>
-              <Carousel>
-                <CarouselContent>
                   {/* <CarouselItem className=""> */}
                     <div className="song_card">
                       <img
@@ -54,10 +60,10 @@ const NewRealizes = () => {
                       </div>
                     </div>
                   {/* </CarouselItem> */}
-                </CarouselContent>
-              </Carousel>
             </Link>
+            </SwiperSlide>
           ))}
+      </Swiper><br /><br /><br /><br />
       </div>
     </div>
   );

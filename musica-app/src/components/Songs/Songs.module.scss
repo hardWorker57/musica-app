@@ -7,6 +7,9 @@ $dark: #1A1E1F;
     margin-top: 1.6em;
     display: flex;
     justify-content: space-between;
+    .main_cover_wrap {
+        max-width: 50%;
+    }
     .main_cover {
         border-radius: 3.5em;
         height: 27em;
@@ -16,8 +19,8 @@ $dark: #1A1E1F;
         display: flex;
         justify-content: center;
         img {
-            max-height: 100%;
-            width: 100%;
+            min-width: 100%;
+            object-fit: cover;
         }
     }
     .song_data {

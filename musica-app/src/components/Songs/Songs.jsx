@@ -2,12 +2,20 @@ import React, { useEffect, useState } from 'react'
 import s from './Songs.module.scss'
 import { CiHeart } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
+import 'swiper/scss/scrollbar';
 
 const Songs = () => {
   
   const [music, setMusic] = useState([])
 
-  const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem';
+  const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=alan walker';
   const options = {
     method: 'GET',
     headers: {
@@ -32,7 +40,36 @@ const Songs = () => {
   return (
     <div>
       <div className={s.top_charts}>
-        <div className={s.main_cover}><img src={music[0] && music[0].album ? music[0].album.cover_xl : ''} alt="" /></div>
+        <div className={s.main_cover_wrap}>
+          <Swiper
+            // spaceBetween={10}
+            slidesPerView={1}
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            navigation
+            // pagination={{ clickable: true }}
+            // pagination={{
+            //   clickable: true,
+            // }}
+            // navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            
+            className="swiper_wrap"
+          >
+            {music.map((song, i) => (
+              <SwiperSlide className="swiper">
+                <Link to={`/song/${song ? song.id : ''}`} key={i}>
+                  <div className={s.main_cover}>
+                    <img src={song && song.album ? song.album.cover_xl : ''} alt="" />
+                  </div>
+                </Link>
+              </SwiperSlide>  
+            ))}
+          </Swiper>
+        </div>
+          
         <div className={s.top_charts_wrap}>
           <div className='block_title'>Top charts</div>
           <div className="chart_els">

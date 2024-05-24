@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <div className='header'>
       <div className="search">
-      <CiSearch /><Input placeholder='Search'/>
+      <div className="animate"><CiSearch /></div><Input placeholder='Search'/>
       </div>
     </div>
   )
