@@ -20,7 +20,7 @@ $dark: #1A1E1F;
         justify-content: center;
         img {
             min-width: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
     }
     .song_data {

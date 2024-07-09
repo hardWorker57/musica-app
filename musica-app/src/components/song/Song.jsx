@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import s from "./Song.module.scss";
 import { useParams } from "react-router-dom";
-import Header from "../header/Header";
 import { FaHeart } from "react-icons/fa";
 import { FaPlayCircle } from "react-icons/fa";
 import { RiPlayListAddFill } from "react-icons/ri";
 
 const Song = () => {
+  const [flag, setFlag] = useState(false)
+  const audioRef = useRef(null);
+
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(error => console.error("Audio playback failed:", error));
+    }
+  };
+
+  const pauseAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+  };
+
   const { id } = useParams();
   const [currentMusic, setCurrentMusic] = useState([]);
 
@@ -29,7 +43,7 @@ const Song = () => {
       .then((data) => {
         if (data) {
           setCurrentMusic(data);
-          console.log(data)
+          console.log(currentMusic.preview)
         }
       });
   };
@@ -37,7 +51,6 @@ const Song = () => {
     return (
     <div className={s.Song}>
       <div className="overlay_image"><img src={currentMusic.album ? currentMusic.album.cover_xl : ''} alt="" /></div>
-      <Header/>
       <div className="container">
         <div className={s.song_wrapper}>
             <div className={s.image}>
@@ -51,11 +64,18 @@ const Song = () => {
                     <div className={s.custom_btn}><FaPlayCircle />Play all</div>
                     <div className={s.custom_btn}><RiPlayListAddFill />Add to collection</div>
                     <div className={s.custom_btn}><FaHeart color="#E5524A"/></div>
-                    <div className="audio"><audio src={currentMusic ? currentMusic.preview : '21'}>12</audio></div>
+                    <div className="audio">
+                      <div>
+                        <audio ref={audioRef} src={currentMusic.preview} preload='metadata'>
+                          Your browser does not support the audio element.
+                        </audio>
+                        <button onClick={playAudio}>Play</button>
+                        <button onClick={pauseAudio}>Pause</button>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <audio src={currentMusic ? currentMusic.preview : '21'}>12</audio>
       </div>
     </div>
   );

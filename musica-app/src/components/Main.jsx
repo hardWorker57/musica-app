@@ -2,9 +2,8 @@
 import Songs from './Songs/Songs'
 import './Main.scss'
 import NewRealizes from './Songs/NewRealizes'
-import Header from './header/Header'
 
-const Main = () => {
+const Main = ({musicData}) => {
 
   // const [music, setMusic] = useState([])
 
@@ -30,15 +29,10 @@ const Main = () => {
   //   getMusic()
   // }, [])
 
-  const mainSearch = function (getType) {
-    function getType() {return}
-  };
-
   return (
     <div className='Main'>
-      <Header/>
       <div className="container">
-        <Songs />
+        <Songs musicData={musicData}/>
         <NewRealizes />
       </div>
     </div>

@@ -11,31 +11,7 @@ import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
 import 'swiper/scss/scrollbar';
 
-const Songs = () => {
-  
-  const [music, setMusic] = useState([])
-
-  const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=alan walker';
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '6be32b6585msh739088a21dcd723p1cf50cjsn8c4f40ca3427',
-      'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com'
-    }
-  };
-
-  const getMusic = () => {
-    fetch(url, options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setMusic(data.data)
-        }
-      });
-  }
-  useEffect(() => {
-    getMusic()
-  }, [])
+const Songs = ({musicData}) => {
 
   return (
     <div>
@@ -58,7 +34,7 @@ const Songs = () => {
             
             className="swiper_wrap"
           >
-            {music.map((song, i) => (
+            {musicData.map((song, i) => (
               <SwiperSlide className="swiper">
                 <Link to={`/song/${song ? song.id : ''}`} key={i}>
                   <div className={s.main_cover}>
@@ -73,7 +49,7 @@ const Songs = () => {
         <div className={s.top_charts_wrap}>
           <div className='block_title'>Top charts</div>
           <div className="chart_els">
-            {music.length > 0 && music.slice(0, 4).map((song, index) => (
+            {musicData.length > 0 && musicData.slice(0, 4).map((song, index) => (
               <Link to={`/song/${song ? song.id : ''}`} key={index}>
                 <div className="charts_el">
                   <img src={song ? song.album.cover_small : ''} alt="no img" />
