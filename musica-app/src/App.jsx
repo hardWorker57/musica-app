@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import Main from "./components/Main";
 import Sidebar from "./components/sidebar/Sidebar";
 import Playlist from "./components/playlist/Playlist";
-// import Header from "./components/header/Header";
 import Song from "./components/song/Song";
 import Rooms from "./components/rooms/Rooms";
 import Player from "./components/player/Player";
@@ -15,7 +14,6 @@ import Header from "./components/header/Header";
 const App = () => {
 
   const [searchType, setSearch] = useState('')
-  
   const [music, setMusic] = useState([])
 
   const url = `https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchType ? searchType : 'alan walker'}`;

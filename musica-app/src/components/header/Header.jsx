@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import { debounce } from 'lodash';
+import React from 'react'
 import { CiSearch } from "react-icons/ci";
-import { Input } from '../ui/input';
 
 const Header = ({ getSearch }) => {
+
+  const handleInputChange = debounce((event) => {
+    getSearch(event.target.value);
+  }, 700);
 
   return (
     <div className='header'>
       <div className="search">
-      <div className="animate"><CiSearch /></div><input onChange={(e) => {getSearch(e.target.value)}} placeholder='Search'/>
+      <div className="animate"><CiSearch /></div><input onChange={handleInputChange} placeholder='Search'/>
       </div>
     </div>
   )

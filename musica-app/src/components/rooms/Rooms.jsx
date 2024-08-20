@@ -1,17 +1,13 @@
 import React from "react";
 import s from "./Rooms.module.scss";
-import Header from "../header/Header";
 import { Link } from "react-router-dom";
 
 const Rooms = () => {
-    // const musicRooms = [{
-    //     'room'
-  // }, {}, {}]
   const musicRooms = [0, 1, 2, 3];
   let i = 1;
+
   return (
     <div className={s.Rooms}>
-      <Header/>
       <div className="container"><br />
         <div className="block_title">My rooms</div> <br />
         <div className={s.rooms}>

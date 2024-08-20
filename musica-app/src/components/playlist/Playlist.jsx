@@ -32,7 +32,6 @@ const Playlist = () => {
 
   return (
     <div className={s.Playlist}>
-      <Header/>
       <div className="container">
         <div className={s.btns}>
           <Button>My collection</Button>
