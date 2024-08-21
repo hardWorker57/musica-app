@@ -10,6 +10,7 @@ import Player from "./components/player/Player";
 import Liked_list from "./components/rooms/Liked_list";
 import Friends from "./components/rooms/Friends";
 import Header from "./components/header/Header";
+import TrackProvider from "./components/store/provider/TrackProvider";
 
 const App = () => {
 
@@ -44,18 +45,20 @@ const App = () => {
 
   return (
     <div className="App">
-      <Sidebar />
-      <Header getSearch={getSearch} />
-      <Routes>
-        <Route path="/" element={<Main musicData={music} />}></Route>
-        <Route path="playlist" element={<Playlist />}></Route>
-        <Route path="song/:id" element={<Song/>}></Route>
-        <Route path="album/:id" element={<Song />}></Route>
-        <Route path="rooms" element={<Rooms/>}></Route>
-        <Route path="liked" element={<Liked_list/>}></Route>
-        <Route path="friends" element={<Friends/>}></Route>
-      </Routes>
-      <Player/>
+      <TrackProvider>
+        <Sidebar />
+        <Header getSearch={getSearch} />
+        <Routes>
+          <Route path="/" element={<Main musicData={music} />}></Route>
+          <Route path="playlist" element={<Playlist />}></Route>
+          <Route path="song/:id" element={<Song/>}></Route>
+          <Route path="album/:id" element={<Song />}></Route>
+          <Route path="rooms" element={<Rooms/>}></Route>
+          <Route path="liked" element={<Liked_list/>}></Route>
+          <Route path="friends" element={<Friends/>}></Route>
+        </Routes>
+        <Player/>
+      </TrackProvider>
     </div>
   );
 };
