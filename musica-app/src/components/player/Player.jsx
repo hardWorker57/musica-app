@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import s from "./Player.module.scss";
 import { HiSpeakerWave } from "react-icons/hi2";
 import { HiSpeakerXMark } from "react-icons/hi2";
@@ -8,15 +8,33 @@ import { MdSkipNext } from "react-icons/md";
 import { FaPauseCircle } from "react-icons/fa";
 import { CiShuffle } from "react-icons/ci";
 import { LuRepeat1 } from "react-icons/lu";
-import FadeUp from "../ui/animations/FadeUp";
 import TrackContext from "../store/TrackContext";
 
 const Player = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.2);
   const { data } = useContext(TrackContext);
   const audioRef = useRef(null);
 
+  const toggleMute = () => {
+    if (audioRef.current) {
+        const newMuteState = !isMuted;
+        audioRef.current.muted = newMuteState;
+        setIsMuted(newMuteState);
+    }
+  };
+  const handleVolumeChange = (event) => {
+    const newVolume = parseFloat(event.target.value);
+    if (audioRef.current) {
+        audioRef.current.volume = newVolume;
+    }
+    setVolume(newVolume);
+    if (newVolume > 0 && isMuted) {
+        audioRef.current.muted = false;
+        setIsMuted(false);
+    }
+};
   const playAudio = () => {
     if (audioRef.current) {
       audioRef.current
@@ -30,10 +48,9 @@ const Player = () => {
       audioRef.current.pause();
     }
   };
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
+  useEffect(() => {
+    audioRef.current.volume = volume;
+  }, [])
 
   return (
     <div className={s.Player}>
@@ -75,8 +92,17 @@ const Player = () => {
             <LuRepeat1 />
           </div>
         </div>
-        <div className={s.player_volume} onClick={() => setIsMuted(!isMuted)}>
-          {isMuted ? <HiSpeakerXMark /> : <HiSpeakerWave />}
+        <div className={s.player_volume}>
+          {isMuted ? <span onClick={toggleMute}><HiSpeakerXMark /></span> : <span ><HiSpeakerWave onClick={toggleMute}/></span>}
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            disabled={isMuted}
+          />
         </div>
       </div>
     </div>
