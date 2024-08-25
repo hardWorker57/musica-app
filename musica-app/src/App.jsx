@@ -7,7 +7,7 @@ import Playlist from "./components/playlist/Playlist";
 import Song from "./components/song/Song";
 import Rooms from "./components/rooms/Rooms";
 import Player from "./components/player/Player";
-import Liked_list from "./components/rooms/Liked_list";
+import Liked_list from "./components/rooms/likedList/LikedList";
 import Friends from "./components/rooms/Friends";
 import Header from "./components/header/Header";
 import TrackProvider from "./components/store/provider/TrackProvider";

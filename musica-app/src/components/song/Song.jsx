@@ -11,13 +11,12 @@ import FadeLeft from "../ui/animations/FadeLeft";
 
 const Song = () => {
   const audioRef = useRef(null);
-  const { updateData, updateLikedList } = useContext(TrackContext);
-  const [firstSongData, setFirstSongData] = useState({})
+  const { likedList, updateData, updateLikedList } = useContext(TrackContext);
 
   const { id } = useParams();
   const [currentMusic, setCurrentMusic] = useState([]);
 
-  const song_url = `https://deezerdevs-deezer.p.rapidapi.com/track/${id ? id : '140295915'}`;
+  const song_url = `https://deezerdevs-deezer.p.rapidapi.com/track/${id}`;
   const options = {
     method: "GET",
     headers: {
@@ -51,7 +50,7 @@ const Song = () => {
       });
   };
   const addToLikedList = () => {
-    updateLikedList(currentMusic);
+    likedList.includes(currentMusic) ? console.log("Already Liked") : updateLikedList(currentMusic);
   };
 
   return (

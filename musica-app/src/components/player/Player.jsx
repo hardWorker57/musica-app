@@ -15,6 +15,7 @@ const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.2);
   const { data } = useContext(TrackContext);
+  const {trackIsEnded, setTrackIsEnded} = useContext(TrackContext);
   const audioRef = useRef(null);
   
   const toggleMute = () => {
@@ -60,8 +61,9 @@ const Player = () => {
   useEffect(() => {
     audioRef.current.volume = volume;
     const audioElement = audioRef.current;
-    const onEnded = () => setIsPlaying(false);
-
+    const onEnded = () => {
+      setIsPlaying(false);
+    }
     if (audioElement) {
       audioElement.addEventListener("ended", onEnded);
     }
@@ -71,6 +73,9 @@ const Player = () => {
       }
     };
   }, []);
+  useEffect(() => {
+    isPlaying ? '' : setTrackIsEnded(!trackIsEnded)
+  }, [isPlaying])
 
   return (
     <div className={s.Player}>
