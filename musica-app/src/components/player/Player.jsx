@@ -16,49 +16,69 @@ const Player = () => {
   const [volume, setVolume] = useState(0.2);
   const { data } = useContext(TrackContext);
   const audioRef = useRef(null);
-
+  
   const toggleMute = () => {
     if (audioRef.current) {
-        const newMuteState = !isMuted;
-        audioRef.current.muted = newMuteState;
-        setIsMuted(newMuteState);
+      const newMuteState = !isMuted;
+      audioRef.current.muted = newMuteState;
+      setIsMuted(newMuteState);
     }
   };
   const handleVolumeChange = (event) => {
     const newVolume = parseFloat(event.target.value);
     if (audioRef.current) {
-        audioRef.current.volume = newVolume;
+      audioRef.current.volume = newVolume;
     }
     setVolume(newVolume);
     if (newVolume > 0 && isMuted) {
-        audioRef.current.muted = false;
-        setIsMuted(false);
-    }
-};
-  const playAudio = () => {
-    if (audioRef.current) {
-      audioRef.current
-        .play()
-        .catch((error) => console.error("Audio playback failed:", error));
+      audioRef.current.muted = false;
+      setIsMuted(false);
     }
   };
 
-  const pauseAudio = () => {
+  const handlePlayPause = () => {
     if (audioRef.current) {
-      audioRef.current.pause();
+      if (audioRef.current.paused) {
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.error("Error playing audio:", error);
+          });
+      } else {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
     }
   };
+
+  useEffect(() => {
+    setIsPlaying(false);
+  }, [data]);
   useEffect(() => {
     audioRef.current.volume = volume;
-  }, [])
+    const audioElement = audioRef.current;
+    const onEnded = () => setIsPlaying(false);
+
+    if (audioElement) {
+      audioElement.addEventListener("ended", onEnded);
+    }
+    return () => {
+      if (audioElement) {
+        audioElement.removeEventListener("ended", onEnded);
+      }
+    };
+  }, []);
 
   return (
     <div className={s.Player}>
       <div className={s.player_wrap}>
         <div className={s.player_song}>
-          <img src={data.album ? data.album.cover : ""} alt="no image" />
+          <img src={data.album ? data.album.cover : "https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg"} alt="no image" />
           <div className={s.content}>
-            <div className={s.title}>{data ? data.title_short : ""}</div>
+            <div className={s.title}>{data ? data.title_short : "choose a song"}</div>
             <div className={s.author}>
               {data.artist ? data.artist.name : ""}
             </div>
@@ -72,14 +92,18 @@ const Player = () => {
             <MdSkipPrevious />
           </div>
           <div className={s.play} onClick={() => setIsPlaying(!isPlaying)}>
-            {isPlaying ? <span onClick={pauseAudio}><FaPauseCircle /></span> : <span onClick={playAudio}><FaPlayCircle /></span>}
+            {isPlaying ? (
+              <span onClick={handlePlayPause}>
+                <FaPauseCircle />
+              </span>
+            ) : (
+              <span onClick={handlePlayPause}>
+                <FaPlayCircle />
+              </span>
+            )}
             <div className="audio">
               <div>
-                <audio
-                  ref={audioRef}
-                  src={data.preview}
-                  preload="metadata"
-                >
+                <audio ref={audioRef} src={data.preview} preload="metadata">
                   Your browser does not support the audio element.
                 </audio>
               </div>
@@ -93,7 +117,15 @@ const Player = () => {
           </div>
         </div>
         <div className={s.player_volume}>
-          {isMuted ? <span onClick={toggleMute}><HiSpeakerXMark /></span> : <span ><HiSpeakerWave onClick={toggleMute}/></span>}
+          {isMuted ? (
+            <span onClick={toggleMute}>
+              <HiSpeakerXMark />
+            </span>
+          ) : (
+            <span>
+              <HiSpeakerWave onClick={toggleMute} />
+            </span>
+          )}
           <input
             type="range"
             min="0"

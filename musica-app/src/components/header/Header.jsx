@@ -6,7 +6,7 @@ const Header = ({ getSearch }) => {
 
   const handleInputChange = debounce((event) => {
     getSearch(event.target.value);
-  }, 700);
+  }, 600);
 
   return (
     <div className='header'>

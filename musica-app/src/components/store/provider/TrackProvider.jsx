@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TrackContext from '../TrackContext';
-// import TrackContext from './TrackContext';
 
 const TrackProvider = ({ children }) => {
   const [data, setData] = useState({});
+  const [likedList, setLikedList] = useState(() => {
+    const savedNames = localStorage.getItem('liked');
+    return savedNames ? JSON.parse(savedNames) : [];
+  });
 
-  // Ensure `updateValue` is correctly defined and passed
   const updateData = (newData) => {
     setData((prevData) => ({
       ...prevData,
@@ -13,8 +15,15 @@ const TrackProvider = ({ children }) => {
     }));
   };
 
+  const updateLikedList = (newData) => {
+    setLikedList((prevData) => [...prevData, newData]);
+  };
+  useEffect(() => {
+    localStorage.setItem('liked', JSON.stringify(likedList));
+  }, [likedList]);
+
   return (
-    <TrackContext.Provider value={{ data, updateData }}>
+    <TrackContext.Provider value={{ data, updateData, likedList, updateLikedList }}>
       {children}
     </TrackContext.Provider>
   );

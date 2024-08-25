@@ -11,12 +11,13 @@ import FadeLeft from "../ui/animations/FadeLeft";
 
 const Song = () => {
   const audioRef = useRef(null);
-  const { updateData } = useContext(TrackContext);
+  const { updateData, updateLikedList } = useContext(TrackContext);
+  const [firstSongData, setFirstSongData] = useState({})
 
   const { id } = useParams();
   const [currentMusic, setCurrentMusic] = useState([]);
 
-  const song_url = `https://deezerdevs-deezer.p.rapidapi.com/track/${id}`;
+  const song_url = `https://deezerdevs-deezer.p.rapidapi.com/track/${id ? id : '140295915'}`;
   const options = {
     method: "GET",
     headers: {
@@ -27,8 +28,18 @@ const Song = () => {
 
   useEffect(() => {
     getThisMusic();
+    // getFirstMusic();
     window.scrollTo(0, 0);
   }, []);
+  // const getFirstMusic = () => {
+  //   fetch(first_song_url, options)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if {
+  //         updateData(firstSongData);
+  //       }
+  //     });
+  // };
   const getThisMusic = () => {
     fetch(song_url, options)
       .then((res) => res.json())
@@ -38,6 +49,9 @@ const Song = () => {
           updateData(data);
         }
       });
+  };
+  const addToLikedList = () => {
+    updateLikedList(currentMusic);
   };
 
   return (
@@ -79,7 +93,7 @@ const Song = () => {
                   <RiPlayListAddFill />
                   Add to collection
                 </div>
-                <div className={s.custom_btn}>
+                <div className={s.custom_btn} onClick={addToLikedList}>
                   <FaHeart color="#E5524A" />
                 </div>
                 <div className="audio">

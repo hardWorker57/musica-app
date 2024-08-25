@@ -9,18 +9,29 @@ $dark: #1A1E1F;
 body {
     margin: 0;
     /* font-family: 'Afacad', sans-serif; */
-    // font-family: 'Comfortaa', sans-serif; 
-    /* font-family: 'Kalnia', serif; */
+    // font-family: 'Comfortaa', sans-serif;
     // font-family: 'Poppins', sans-serif;
     font-family: 'Roboto', sans-serif; 
-    background-color: #16181E;
+    animation: background_change 5s alternate infinite;
     color: #EFEEE0;
+}
+@keyframes background_change {
+    0% {
+        background-color: #352a2a;
+    }
+    50% {
+        background-color: #273235; 
+    }
+    100% {
+        background-color: #343240;
+    }
 }
 body::-webkit-scrollbar {
     display: none;
 }
 
 .header {
+    background-color: #1a1e1f79;
     padding-top: 1.2em;
 }
 
@@ -103,6 +114,7 @@ button:hover {
 
 .chart_els {
     gap: .6em;
+    padding-right: .5rem;
     display: flex;
     border-radius: 2em;
     max-height: 23em;
@@ -151,9 +163,10 @@ button:hover {
     }
 }
 .overlay_image {
+    top: 0;
     position: absolute;
     z-index: -1;
-    background: linear-gradient(180deg, rgba(255,255,255,0.16271008403361347) 32%, rgba(0,0,0,0.4963235294117647) 100%);
+    background: linear-gradient(180deg, rgba(96, 96, 96, 0.31) 32%, rgba(0, 0, 0, 0.767) 100%);
     img {
         min-width: 100vw;
         object-fit: cover;
