@@ -4,6 +4,8 @@ import TrackContext from '../TrackContext';
 const TrackProvider = ({ children }) => {
   const [data, setData] = useState({});
   const [trackIsEnded, setTrackIsEnded] = useState(false);
+  const [nextTrack, setNextTrack] = useState(false);
+  const [prevTrack, setPrevTrack] = useState(false);
   const [likedList, setLikedList] = useState(() => {
     const savedNames = localStorage.getItem('liked');
     return savedNames ? JSON.parse(savedNames) : [];
@@ -24,7 +26,7 @@ const TrackProvider = ({ children }) => {
   }, [likedList]);
 
   return (
-    <TrackContext.Provider value={{ data, updateData, likedList, updateLikedList, trackIsEnded, setTrackIsEnded }}>
+    <TrackContext.Provider value={{ data, updateData, likedList, updateLikedList, trackIsEnded, setTrackIsEnded, nextTrack, prevTrack, setNextTrack, setPrevTrack}}>
       {children}
     </TrackContext.Provider>
   );

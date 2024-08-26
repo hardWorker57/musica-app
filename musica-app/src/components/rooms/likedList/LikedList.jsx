@@ -3,17 +3,25 @@ import TrackContext from "../../store/TrackContext";
 import css from "./LikedList.module.scss"
 
 const Liked_list = () => {
-  const {likedList, updateData, trackIsEnded, setTrackIsEnded} = useContext(TrackContext);
+  const {likedList, updateData, trackIsEnded, setNextTrack, setPrevTrack, nextTrack, prevTrack} = useContext(TrackContext);
   const [currentTrack, setCurrentTrack] = useState(0);
 
-  function nextTrack() {
-    setTrackIsEnded(true);
-  }
   useEffect(() => {
-    // nextTrack();
-    console.log('yay');
-    updateData(likedList[currentTrack]);
-    setCurrentTrack((prev) => prev + 1);
+    if(nextTrack) {
+      setCurrentTrack((prev) => prev + 1);
+      setNextTrack(false);
+    }
+    if(prevTrack) {
+      setCurrentTrack((prev) => prev - 1);
+      setPrevTrack(false);
+    }
+    updateData(likedList[currentTrack])
+  }, [nextTrack, prevTrack])
+  useEffect(() => {
+    if(trackIsEnded) {
+      updateData(likedList[currentTrack]);
+      setCurrentTrack((prev) => prev + 1);
+    }
   }, [trackIsEnded]);
   return (
     <div className={css.Liked_list}>

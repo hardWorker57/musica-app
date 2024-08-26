@@ -14,8 +14,7 @@ const Player = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.2);
-  const { data } = useContext(TrackContext);
-  const {trackIsEnded, setTrackIsEnded} = useContext(TrackContext);
+  const { data, setTrackIsEnded, setNextTrack, setPrevTrack } = useContext(TrackContext);
   const audioRef = useRef(null);
   
   const toggleMute = () => {
@@ -57,12 +56,14 @@ const Player = () => {
 
   useEffect(() => {
     setIsPlaying(false);
+    setTrackIsEnded(false);
   }, [data]);
   useEffect(() => {
     audioRef.current.volume = volume;
     const audioElement = audioRef.current;
     const onEnded = () => {
       setIsPlaying(false);
+      setTrackIsEnded(true);
     }
     if (audioElement) {
       audioElement.addEventListener("ended", onEnded);
@@ -73,9 +74,9 @@ const Player = () => {
       }
     };
   }, []);
-  useEffect(() => {
-    isPlaying ? '' : setTrackIsEnded(!trackIsEnded)
-  }, [isPlaying])
+  // useEffect(() => {
+  //   isPlaying ? '' : setTrackIsEnded(!trackIsEnded)
+  // }, [isPlaying]);
 
   return (
     <div className={s.Player}>
@@ -93,7 +94,7 @@ const Player = () => {
           <div className={s.shuffle}>
             <CiShuffle />
           </div>
-          <div className={s.prev}>
+          <div className={s.prev} onClick={() => setPrevTrack(true)}>
             <MdSkipPrevious />
           </div>
           <div className={s.play} onClick={() => setIsPlaying(!isPlaying)}>
@@ -114,7 +115,7 @@ const Player = () => {
               </div>
             </div>
           </div>
-          <div className={s.next}>
+          <div className={s.next} onClick={() => setNextTrack(true)}>
             <MdSkipNext />
           </div>
           <div className={s.repeat}>
