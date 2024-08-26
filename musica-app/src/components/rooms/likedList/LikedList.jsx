@@ -3,9 +3,12 @@ import TrackContext from "../../store/TrackContext";
 import css from "./LikedList.module.scss"
 
 const Liked_list = () => {
-  const {likedList, updateData, trackIsEnded, setNextTrack, setPrevTrack, nextTrack, prevTrack} = useContext(TrackContext);
+  const {likedList, updateData, trackIsEnded, setNextTrack, setPrevTrack, nextTrack, prevTrack, setIsPlaylist} = useContext(TrackContext);
   const [currentTrack, setCurrentTrack] = useState(0);
 
+  useEffect(() => {
+    setIsPlaylist(true);
+  }, [])
   useEffect(() => {
     if(nextTrack) {
       setCurrentTrack((prev) => prev + 1);
@@ -19,7 +22,7 @@ const Liked_list = () => {
   }, [nextTrack, prevTrack])
   useEffect(() => {
     if(trackIsEnded) {
-      updateData(likedList[currentTrack]);
+      updateData(likedList[currentTrack + 1]);
       setCurrentTrack((prev) => prev + 1);
     }
   }, [trackIsEnded]);
@@ -30,7 +33,7 @@ const Liked_list = () => {
         <div className="block_title">Liked list</div>
         <div className={css.liked_list}>
           {likedList && likedList.map((item, i) => (
-            <div className={css.list_item} key={i} onClick={() => {updateData(item); setCurrentTrack(i+1)}}>
+            <div className={css.list_item} key={i} onClick={() => {updateData(item); setCurrentTrack(i)}}>
               <div className={css.list_item_img_wrap}>
                 <img
                   src={item ? item.album.cover_medium : ''}

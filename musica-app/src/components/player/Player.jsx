@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import s from "./Player.module.scss";
-import { HiSpeakerWave } from "react-icons/hi2";
-import { HiSpeakerXMark } from "react-icons/hi2";
-import { FaPlayCircle } from "react-icons/fa";
-import { MdSkipPrevious } from "react-icons/md";
-import { MdSkipNext } from "react-icons/md";
-import { FaPauseCircle } from "react-icons/fa";
+import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
+import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
+import { MdSkipPrevious, MdSkipNext } from "react-icons/md";
 import { CiShuffle } from "react-icons/ci";
 import { LuRepeat1 } from "react-icons/lu";
 import TrackContext from "../store/TrackContext";
@@ -14,7 +11,7 @@ const Player = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.2);
-  const { data, setTrackIsEnded, setNextTrack, setPrevTrack } = useContext(TrackContext);
+  const { data, setTrackIsEnded, trackIsEnded, setNextTrack, nextTrack, setPrevTrack, prevTrack, isPlaylist } = useContext(TrackContext);
   const audioRef = useRef(null);
   
   const toggleMute = () => {
@@ -55,6 +52,12 @@ const Player = () => {
   };
 
   useEffect(() => {
+    if(!isPlaying) {
+      setIsPlaying(false)
+    }
+    isPlaylist && handlePlayPause();
+  }, [trackIsEnded, nextTrack, prevTrack]);
+  useEffect(() => {
     setIsPlaying(false);
     setTrackIsEnded(false);
   }, [data]);
@@ -74,9 +77,6 @@ const Player = () => {
       }
     };
   }, []);
-  // useEffect(() => {
-  //   isPlaying ? '' : setTrackIsEnded(!trackIsEnded)
-  // }, [isPlaying]);
 
   return (
     <div className={s.Player}>

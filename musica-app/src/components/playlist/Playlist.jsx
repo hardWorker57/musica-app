@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import s from "./Playlist.module.scss";
 import { Link } from "react-router-dom";
-import Header from "../header/Header";
 
 const Playlist = () => {
 
@@ -35,7 +34,7 @@ const Playlist = () => {
       <div className="container">
         <div className={s.btns}>
           <Button>My collection</Button>
-          <Button>Likes</Button>
+          <Link to="/liked"><Button>My likes</Button></Link>
         </div> <br />
         <div className="song_cards">
           {music.length > 0 && music.slice(0, 4).map((album, index) => (

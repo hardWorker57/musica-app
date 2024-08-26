@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import s from "./Song.module.scss";
 import { useParams } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
-import { FaPlayCircle } from "react-icons/fa";
+import { FaHeart, FaPlayCircle } from "react-icons/fa";
 import { RiPlayListAddFill } from "react-icons/ri";
 import TrackContext from "../store/TrackContext";
 import FadeUp from "../ui/animations/FadeUp";
@@ -30,15 +29,7 @@ const Song = () => {
     // getFirstMusic();
     window.scrollTo(0, 0);
   }, []);
-  // const getFirstMusic = () => {
-  //   fetch(first_song_url, options)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if {
-  //         updateData(firstSongData);
-  //       }
-  //     });
-  // };
+  
   const getThisMusic = () => {
     fetch(song_url, options)
       .then((res) => res.json())
