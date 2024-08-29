@@ -26,8 +26,12 @@ const TrackProvider = ({ children }) => {
     localStorage.setItem('liked', JSON.stringify(likedList));
   }, [likedList]);
 
+  const deleteLiked = (indexToDelete) => {
+    setLikedList((prevSongs) => prevSongs.filter((_, index) => index !== indexToDelete));
+  };
+
   return (
-    <TrackContext.Provider value={{ data, updateData, likedList, updateLikedList, trackIsEnded, setTrackIsEnded, nextTrack, prevTrack, setNextTrack, setPrevTrack, isPlaylist, setIsPlaylist}}>
+    <TrackContext.Provider value={{ data, updateData, likedList, updateLikedList, deleteLiked, trackIsEnded, setTrackIsEnded, nextTrack, prevTrack, setNextTrack, setPrevTrack, isPlaylist, setIsPlaylist}}>
       {children}
     </TrackContext.Provider>
   );

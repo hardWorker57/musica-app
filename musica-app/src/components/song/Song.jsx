@@ -10,7 +10,7 @@ import FadeLeft from "../ui/animations/FadeLeft";
 
 const Song = () => {
   const audioRef = useRef(null);
-  const { likedList, updateData, updateLikedList } = useContext(TrackContext);
+  const { likedList, updateData, updateLikedList, setIsPlaylist } = useContext(TrackContext);
 
   const { id } = useParams();
   const [currentMusic, setCurrentMusic] = useState([]);
@@ -25,6 +25,7 @@ const Song = () => {
   };
 
   useEffect(() => {
+    setIsPlaylist(false);
     getThisMusic();
     // getFirstMusic();
     window.scrollTo(0, 0);

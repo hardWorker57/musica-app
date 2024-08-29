@@ -145,6 +145,7 @@ button:hover {
     gap: 1.8em;
     .song_card {
         max-width: 12.5em;
+        padding: .8rem;
         text-align: center;
         transition: .3s ease;
         &:hover {

@@ -3,7 +3,6 @@ import s from "./Sidebar.module.scss"
 import { MdHomeFilled } from "react-icons/md";
 import { PiPlaylistFill } from "react-icons/pi";
 import { IoIosRadio } from "react-icons/io";
-// import { BiSolidVideos } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
@@ -17,7 +16,6 @@ const Sidebar = () => {
     <FadeDown delay={.4}>
       <div className={s.Sidebar}>
         <div className="logo">
-          {/* MusRoom */}
           <Link to='/'><GiGuitarBassHead /></Link>
         </div>
         <ul className={s.menu}>

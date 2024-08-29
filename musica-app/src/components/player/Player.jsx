@@ -52,12 +52,14 @@ const Player = () => {
   };
 
   useEffect(() => {
-    if(!isPlaying) {
-      setIsPlaying(false)
-    }
+    // if(isPlaying) {
+    //   setIsPlaying(false)
+    // }
+    // setIsPlaying(!isPlaying);
     isPlaylist && handlePlayPause();
   }, [trackIsEnded, nextTrack, prevTrack]);
   useEffect(() => {
+    isPlaylist && handlePlayPause();
     setIsPlaying(false);
     setTrackIsEnded(false);
   }, [data]);

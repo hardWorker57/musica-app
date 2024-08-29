@@ -7,7 +7,7 @@ const Playlist = () => {
 
   const [music, setMusic] = useState([]);
 
-  const url = "https://deezerdevs-deezer.p.rapidapi.com/search?q=pushbaby";
+  const url = "https://deezerdevs-deezer.p.rapidapi.com/search?q=takeonme elli";
   const options = {
     method: "GET",
     headers: {
