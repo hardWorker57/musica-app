@@ -14,8 +14,9 @@ import TrackProvider from "./components/store/provider/TrackProvider";
 
 const App = () => {
 
-  const [searchType, setSearch] = useState('')
-  const [music, setMusic] = useState([])
+  const [searchType, setSearch] = useState('');
+  const [music, setMusic] = useState([]);
+  const [mobile, setMobile] = useState(false);
 
   const url = `https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchType ? searchType : 'alan walker'}`;
   const options = {
@@ -46,8 +47,8 @@ const App = () => {
   return (
     <div className="App">
       <TrackProvider>
-        <Sidebar />
-        <Header getSearch={getSearch} />
+        <Sidebar mobile={mobile} />
+        <Header getSearch={getSearch} mobile={mobile} setMobile={setMobile} />
         <Routes>
           <Route path="/" element={<Main musicData={music} />}></Route>
           <Route path="playlist" element={<Playlist />}></Route>

@@ -12,6 +12,9 @@ $dark: #1A1E1F;
     .main_cover_wrap {
         max-width: 50%;
         margin-inline: auto;
+        @media (max-width: 768px) {
+            max-width: 100%;
+        }
     }
     .main_cover {
         border-radius: 3.5em;

@@ -31,6 +31,10 @@ body::-webkit-scrollbar {
 }
 
 .header {
+    gap: 3rem;
+    padding: 0 8rem;
+    display: flex;
+    align-items: center;
     background-color: #1a1e1f79;
     padding-top: 1.2em;
     margin-bottom: 1rem;
@@ -94,7 +98,6 @@ button:hover {
     display: flex;
     gap: 1em;
     align-items: flex-end;
-    margin-left: 7em;
     input {
         width: 20em;
     }
@@ -178,4 +181,10 @@ button:hover {
 }
 .swiper_wrap, .swiper {
     overflow: visible;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 12px;
+    }
 }

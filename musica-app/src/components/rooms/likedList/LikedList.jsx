@@ -8,9 +8,9 @@ const Liked_list = () => {
   const {likedList, deleteLiked, updateData, trackIsEnded, setNextTrack, setPrevTrack, nextTrack, prevTrack, setIsPlaylist} = useContext(TrackContext);
   const [currentTrack, setCurrentTrack] = useState(0);
 
-  useEffect(() => {
+  // useEffect(() => {
     setIsPlaylist(true);
-  }, [])
+  // }, [])
   useEffect(() => {
     if(nextTrack) {
       setCurrentTrack((prev) => prev + 1);
