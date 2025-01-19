@@ -7,7 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { GiGuitarBassHead } from "react-icons/gi";
 import FadeDown from '../ui/animations/FadeDown';
 
@@ -17,15 +17,15 @@ const Sidebar = ({mobile}) => {
       {/* <FadeDown delay={.4}> */}
         <div className={s.Sidebar}>
           <ul className={s.menu}>
-            <li><Link to="/" className={s.menu_list}><MdHomeFilled /></Link></li>
-            <li><Link to="/playlist" className={s.menu_list}><PiPlaylistFill /></Link></li>
-            <li><Link to="/rooms" className={s.menu_list}><IoIosRadio /></Link></li>
-            <li><Link to="/liked" className={s.menu_list}><FaHeart /></Link></li>
-            <li><Link to="/friends" className={s.menu_list}><FaUserFriends /></Link></li>
+            <li><NavLink to="/" className={s.menu_list}><MdHomeFilled /></NavLink></li>
+            <li><NavLink to="/playlist" className={s.menu_list}><PiPlaylistFill /></NavLink></li>
+            <li><NavLink to="/rooms" className={s.menu_list}><IoIosRadio /></NavLink></li>
+            <li><NavLink to="/liked" className={s.menu_list}><FaHeart /></NavLink></li>
+            <li><NavLink to="/friends" className={s.menu_list}><FaUserFriends /></NavLink></li>
           </ul>
           <ul className={s.menu}>
-            <li><Link to="/profile" className={s.menu_list}><CgProfile /></Link></li>
-            <li><Link to="/logout" className={s.menu_list}><MdOutlineLogout /></Link></li>
+            <li><NavLink to="/profile" className={s.menu_list}><CgProfile /></NavLink></li>
+            <li><NavLink to="/logout" className={s.menu_list}><MdOutlineLogout /></NavLink></li>
           </ul>
         </div>
       {/* </FadeDown> */}

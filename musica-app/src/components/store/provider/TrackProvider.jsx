@@ -7,6 +7,8 @@ const TrackProvider = ({ children }) => {
   const [nextTrack, setNextTrack] = useState(false);
   const [prevTrack, setPrevTrack] = useState(false);
   const [isPlaylist, setIsPlaylist] = useState(false);
+  const [playlistData, setPlaylistData] = useState([]);
+  const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
   const [likedList, setLikedList] = useState(() => {
     const savedNames = localStorage.getItem('liked');
     return savedNames ? JSON.parse(savedNames) : [];
@@ -14,6 +16,10 @@ const TrackProvider = ({ children }) => {
 
   const updateData = (newData) => {
     setData((prevData) => ({
+      ...prevData,
+      ...newData,
+    }));
+    setPlaylistData((prevData) => ({
       ...prevData,
       ...newData,
     }));
@@ -31,7 +37,7 @@ const TrackProvider = ({ children }) => {
   };
 
   return (
-    <TrackContext.Provider value={{ data, updateData, likedList, updateLikedList, deleteLiked, trackIsEnded, setTrackIsEnded, nextTrack, prevTrack, setNextTrack, setPrevTrack, isPlaylist, setIsPlaylist}}>
+    <TrackContext.Provider value={{ data, playlistData, setPlaylistData, updateData, currentTrackIdx, setCurrentTrackIdx, likedList, updateLikedList, deleteLiked, trackIsEnded, setTrackIsEnded, nextTrack, prevTrack, setNextTrack, setPrevTrack, isPlaylist, setIsPlaylist}}>
       {children}
     </TrackContext.Provider>
   );

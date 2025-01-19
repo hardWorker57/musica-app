@@ -11,9 +11,19 @@ const Player = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.2);
-  const { data, setTrackIsEnded, trackIsEnded, setNextTrack, nextTrack, setPrevTrack, prevTrack, isPlaylist } = useContext(TrackContext);
+  const { data, playlistData, setTrackIsEnded, currentTrackIdx, trackIsEnded, setNextTrack, nextTrack, setPrevTrack, prevTrack, isPlaylist } = useContext(TrackContext);
   const audioRef = useRef(null);
+  let [idx, setidx] = useState(0);
+  const [playlist, setPlaylist] = useState(false);
   
+  useEffect(() => {
+    setPlaylist(isPlaylist)
+  }, [])
+
+  const musicData = playlist ? playlistData[currentTrackIdx] : data;
+  console.log(isPlaylist);
+  console.log(playlistData);
+
   const toggleMute = () => {
     if (audioRef.current) {
       const newMuteState = !isMuted;
@@ -68,6 +78,7 @@ const Player = () => {
     const audioElement = audioRef.current;
     const onEnded = () => {
       setIsPlaying(false);
+      setidx(prev => (prev + 1));
       setTrackIsEnded(true);
     }
     if (audioElement) {
@@ -84,11 +95,11 @@ const Player = () => {
     <div className={s.Player}>
       <div className={s.player_wrap}>
         <div className={s.player_song}>
-          <img src={data.album ? data.album.cover : "https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg"} alt="no image" />
+          <img src={musicData && musicData.album ? musicData.album.cover : "https://daily.jstor.org/wp-content/uploads/2023/01/good_times_with_bad_music_1050x700.jpg"} alt="no image" />
           <div className={s.content}>
-            <div className={s.title}>{data ? data.title_short : "choose a song"}</div>
+            <div className={s.title}>{musicData ? musicData.title_short : "choose a song"}</div>
             <div className={s.author}>
-              {data.artist ? data.artist.name : ""}
+              {musicData && musicData.artist ? musicData.artist.name : ""}
             </div>
           </div>
         </div>
@@ -111,7 +122,7 @@ const Player = () => {
             )}
             <div className="audio">
               <div>
-                <audio ref={audioRef} src={data.preview} preload="metadata">
+                <audio ref={audioRef} src={musicData && musicData.preview} preload="metadata">
                   Your browser does not support the audio element.
                 </audio>
               </div>

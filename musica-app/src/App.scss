@@ -44,12 +44,19 @@ a {
     text-decoration: none;
     color: inherit;
     transition: all .3s ease;
+    &.active {
+        color: $prime-color;
+        border-bottom-color: $prime-color;
+    }
 }
 ul {
     padding: 0;
 }
 li {
     list-style: none;
+    a {
+        border-bottom: 1px solid transparent;
+    }
 }
 input {
     box-shadow: none;
@@ -129,12 +136,17 @@ button:hover {
 }
 .charts_el {
     display: flex;
+    cursor: pointer;
     justify-content: space-between;
     background-color: $dark;
     border-radius: 2em;
     padding: .7em 1em;
     align-items: center;
     transition: .3s ease;
+    &_active {
+        background-color: rgb(65, 65, 159);
+        animation: scale_change 1.3s ease infinite;
+    }
     &:hover {
         transform: scale(.95);
     }
@@ -186,5 +198,16 @@ button:hover {
 @media (max-width: 768px) {
     html {
         font-size: 12px;
+    }
+}
+@keyframes scale_change {
+    0% {
+        transform: scale(.96);
+    }
+    50% {
+        transform: scale(1.005);
+    }
+    100% {
+        transform: scale(.96);
     }
 }

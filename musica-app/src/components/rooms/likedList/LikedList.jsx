@@ -5,12 +5,14 @@ import css from "./LikedList.module.scss"
 import Grow from "@/components/ui/animations/Grow";
 
 const Liked_list = () => {
-  const {likedList, deleteLiked, updateData, trackIsEnded, setNextTrack, setPrevTrack, nextTrack, prevTrack, setIsPlaylist} = useContext(TrackContext);
+  const {likedList, deleteLiked, updateData, setCurrentTrackIdx, trackIsEnded, setNextTrack, setPrevTrack, nextTrack, prevTrack, setIsPlaylist} = useContext(TrackContext);
+  const { setPlaylistData } = useContext(TrackContext);
   const [currentTrack, setCurrentTrack] = useState(0);
 
   // useEffect(() => {
     setIsPlaylist(true);
   // }, [])
+  setPlaylistData(likedList);
   useEffect(() => {
     if(nextTrack) {
       setCurrentTrack((prev) => prev + 1);
@@ -28,6 +30,9 @@ const Liked_list = () => {
     }
     updateData(likedList[currentTrack]);
   }, [trackIsEnded]);
+  useEffect(() => {
+    setCurrentTrackIdx(currentTrack);
+  }, [updateData])
   return (
     <div className={css.Liked_list}>
       <div className="container">

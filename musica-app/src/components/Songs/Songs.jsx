@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import s from "./Songs.module.scss";
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
@@ -13,8 +13,38 @@ import "swiper/scss/pagination";
 import "swiper/scss/scrollbar";
 import FadeLeft from "../ui/animations/FadeLeft";
 import Grow from "../ui/animations/Grow";
+import TrackContext from "../store/TrackContext";
 
 const Songs = ({ musicData }) => {
+  const { setPlaylistData, setIsPlaylist, setCurrentTrackIdx, trackIsEnded, updateData, nextTrack, prevTrack, setNextTrack, setPrevTrack } = useContext(TrackContext);
+  const [currentTrack, setCurrentTrack] = useState(0);
+  setIsPlaylist(true);
+  const handleData = () => {
+    if (musicData) {
+      setPlaylistData(musicData);
+    }
+  }
+  useEffect(() => {
+      if(nextTrack) {
+        setCurrentTrack((prev) => prev + 1);
+        setNextTrack(false);
+      }
+      if(prevTrack) {
+        setCurrentTrack((prev) => prev - 1);
+        setPrevTrack(false);
+      }
+      updateData(musicData[currentTrack])
+    }, [nextTrack, prevTrack])
+    useEffect(() => {
+      if(trackIsEnded) {
+        setCurrentTrack((prev) => prev + 1);
+      }
+      updateData(musicData[currentTrack]);
+    }, [trackIsEnded]);
+  useEffect(() => {
+    setCurrentTrackIdx(currentTrack);
+  }, [updateData])
+
   return (
     <div>
       <div className={s.top_charts}>
@@ -55,8 +85,8 @@ const Songs = ({ musicData }) => {
             {musicData.length > 0 &&
               musicData.slice(0, 20).map((song, index) => (
                 <FadeLeft delay={index * 0.15}>
-                  <Link to={`/song/${song ? song.id : ""}`} key={index}>
-                    <div className="charts_el">
+                  <div key={index} onClick={() => {updateData(song); setCurrentTrack(index); handleData()}}>
+                    <div className={`charts_el ${index === currentTrack ? "charts_el_active" : ''}`}>
                       <img
                         src={song ? song.album.cover_small : ""}
                         alt="no img"
@@ -76,7 +106,7 @@ const Songs = ({ musicData }) => {
                         <CiHeart />
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </FadeLeft>
               ))}
           </div>
