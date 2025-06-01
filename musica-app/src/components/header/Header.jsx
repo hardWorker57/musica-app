@@ -2,6 +2,7 @@ import { debounce } from "lodash";
 import React from "react";
 import { CiSearch } from "react-icons/ci";
 import { GiGuitarBassHead } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 const Header = ({ getSearch, setMobile, mobile }) => {
   const handleInputChange = debounce((event) => {
@@ -17,7 +18,7 @@ const Header = ({ getSearch, setMobile, mobile }) => {
         <div className="animate">
           <CiSearch />
         </div>
-        <input type="search" onChange={handleInputChange} placeholder="Search" />
+        <input onChange={handleInputChange} placeholder="Search" />
       </div>
     </div>
   );
